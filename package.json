@@ -1,0 +1,25 @@
+{
+  "name": "kss-jade-react-generator",
+  "version": "0.0.0",
+  "description": "A kss-node generator with jade template/React.js component",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kotorieclair/kss-jade-react-generator.git"
+  },
+  "author": "kotorieclair",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/kotorieclair/kss-jade-react-generator/issues"
+  },
+  "homepage": "https://github.com/kotorieclair/kss-jade-react-generator#readme",
+  "dependencies": {
+    "babel": "^5.8.21",
+    "jade": "^1.11.0",
+    "kss": "^2.1.0",
+    "react": "^0.13.3"
+  }
+}
