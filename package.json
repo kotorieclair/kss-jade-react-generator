@@ -18,8 +18,16 @@
   "homepage": "https://github.com/kotorieclair/kss-jade-react-generator#readme",
   "dependencies": {
     "babel": "^5.8.21",
+    "glob": "^5.0.14",
     "jade": "^1.11.0",
     "kss": "^2.1.0",
-    "react": "^0.13.3"
+    "lodash": "^3.10.1",
+    "marked": "^0.3.5",
+    "react": "^0.13.3",
+    "wrench": "^1.5.8"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.0",
+    "gulp-open": "^1.0.0"
   }
 }

@@ -1,0 +1,151 @@
+doctype
+<!--[if lte IE 6]>
+<html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en">
+<![endif]-->
+<!--[if IEMobile 7]>
+<html class="no-js iem7" lang="en">
+<![endif]-->
+<!--[if (IE 7)&(!IEMobile)]>
+<html class="no-js lt-ie9 lt-ie8" lang="en">
+<![endif]-->
+<!--[if IE 8]>
+<html class="no-js lt-ie9" lang="en">
+<![endif]-->
+<!--[if (gte IE 9)|(gt IEMobile 7)]><!-->
+<html class="no-js" lang="en">
+<!--<![endif]-->
+head
+  meta(charset='utf-8')
+  title= options.title
+  meta(name='description', content='')
+  meta(name='generator', content='kss-node')
+  meta(name='viewport', content='width=device-width')
+  //- link(rel='stylesheet', href='public/kss.css')
+  != styles
+body#kss-node
+  //- .kss-sidebar.kss-style
+  //-   header.kss-header
+  //-     h1.kss-doc-title= options.title
+  //-   nav.kss-nav
+  //-     ul.kss-nav__menu
+  //-       li.kss-nav__menu-item
+  //-         a(href='index.html')
+  //-           span.kss-nav__ref 0
+  //-           span.kss-nav__name Overview
+  //-             {{#eachRoot}}
+  //-       li.kss-nav__menu-item
+  //-         a(href='section-#{referenceURI}.html')
+  //-           span.kss-nav__ref {{#ifNumeric reference}}{{reference}}{{else}}{{autoincrement}}{{/ifNumeric}}
+  //-           span.kss-nav__name= header
+  //-             {{#ifReference ../rootName}}
+  //-                  
+  //-         ul.kss-nav__menu-child
+  //-           {{#eachSection reference}}
+  //-           {{#ifDepth 2}}
+  //-           li.kss-nav__menu-item
+  //-             a(href='section-#{../../referenceURI}.html#kssref-#{referenceURI}')
+  //-               span.kss-nav__ref {{#ifNumeric reference}}{{reference}}{{else}}{{autoincrement}}{{/ifNumeric}}
+  //-               span.kss-nav__name= {header}
+  //-                 {{/ifDepth}}
+  //-                 {{/eachSection}}
+  //-                 {{/ifReference}}
+  //-                 {{/eachRoot}}
+  article.kss-main(role='main')
+    - var orig = JSON.stringify(styleguide, null, '  ');
+    - var sections = styleguide.section('x')[0]
+    - var sectionsData = sections.data;
+    - var opts = JSON.stringify(sections, null, '  ');
+    - var opts2 = JSON.stringify(sectionsData, null, '  ');
+    //- pre= opts
+    //- pre= opts2
+    pre= orig
+    
+    -
+      if (helpers.testHelper)
+        sec = helpers.testHelper();
+      else
+        sec = "no";
+
+    - var roots = helpers.eachRoot();
+    each root in roots
+      p= root.header
+
+  //-   {{#if homepage}}
+  //-   #kssref-0.kss-section.kss-section--depth-0.kss-overview.kss-style
+  //-     != homepage
+  //-     {{else}}
+  //-     {{!
+  //-     Display each section, in order.
+  //-     The &quot;root&quot; element comes first in this loop, and can be detected using
+  //-     the &quot;#ifDepth 1&quot; block as seen below.
+  //-     }}
+  //-     {{#eachSection rootName}}
+  //-     {{#ifDepth 1}}
+  //-          
+  //-   .kss-section(id='kssref-#{referenceURI}', class='kss-section--depth-#{depth}')
+  //-      {{else}}
+  //-     section.kss-section(id='kssref-#{referenceURI}', class='kss-section--depth-{depth}')
+  //-       {{/ifDepth}}
+  //-       .kss-style
+  //-         {{#if parameters}}
+  //-         ul.kss-parameters
+  //-           {{#eachParameter}}
+  //-           li.kss-parameters__item
+  //-             code.kss-parameters__name= name
+  //-             .kss-parameters__description!= description
+  //-               {{/eachParameter}}
+  //-               {{/if}}
+  //-               {{#if description}}
+  //-                
+  //-         .kss-description
+  //-           != description
+  //-           {{/if}}
+  //-           {{#if markup}}
+  //-              
+  //-       .kss-modifier__wrapper
+  //-         .kss-modifier__heading.kss-style
+  //-           Example{{#if modifiers}}s{{/if}}
+  //-             {{#if modifiers}}
+  //-                  
+  //-         .kss-modifier__default-name.kss-style
+  //-           Default styling
+  //-             {{/if}}
+  //-                  
+  //-         .kss-modifier__example
+  //-           {{{markup}}}
+  //-           {{#eachModifier}}
+  //-                  
+  //-         .kss-modifier__name.kss-style
+  //-           {{name}}
+  //-                  
+  //-         .kss-modifier__description.kss-style
+  //-           {{{description}}}
+  //-                  
+  //-         .kss-modifier__example
+  //-           {{{markup}}}
+  //-           {{/eachModifier}}
+  //-              
+  //-       .kss-markup.kss-style
+  //-         pre.prettyprint.linenums.lang-html.
+  //-           
+  //-         {{/if}}
+  //-         {{#ifDepth 1}}
+  //-         {{else}}
+  //-         {{/ifDepth}}
+  //-         {{/eachSection}}
+  //-         {{/if}}
+  //- // SCRIPTS
+  //- script(src='public/kss.js')
+  //- script(src='public/prettify.js')
+  //- script.
+  //-   prettyPrint();
+  //-   {{{scripts}}}
+  //-   {{! This will only be included in the demo page. }}
+  //-   {{#if options.xdemo}}
+  //-    
+  //- footer.kss-github
+  //-   // https://github.com/blog/273-github-ribbons
+  //-   a(href='https://github.com/kss-node/kss-node')
+  //-     img(src='public/github-fork--black.png', alt='Fork me on GitHub')
+  //-     {{/if}}
+  //- // Automatically generated using <a href="https://github.com/kss-node/kss-node">kss-node</a>.
