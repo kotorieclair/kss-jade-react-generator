@@ -16,7 +16,7 @@ doctype
 <!--<![endif]-->
 head
   meta(charset='utf-8')
-  title= options.title
+  title= config.title
   meta(name='description', content='')
   meta(name='generator', content='kss-node')
   meta(name='viewport', content='width=device-width')
@@ -25,7 +25,7 @@ head
 body#kss-node
   .kss-sidebar.kss-style
     header.kss-header
-      h1.kss-doc-title= options.title
+      h1.kss-doc-title= config.title
 
     nav.kss-nav
       ul.kss-nav__menu
@@ -107,7 +107,7 @@ body#kss-node
                 | Default styling
               
             .kss-modifier__example
-              {{{markup}}}
+              != helpers.markup(modifier)
   
             each modifier in helpers.eachModifier(section)
               .kss-modifier__name.kss-style
@@ -117,12 +117,12 @@ body#kss-node
                 != modifier.description
                        
               .kss-modifier__example
-                {{{markup}}}
+                != helpers.markup(modifier)
 
           .kss-markup.kss-style
             pre.prettyprint.linenums.lang-html
               code(data-language='html')
-                {{markup}}
+                != helpers.markup(modifier)
 
   //- // SCRIPTS
   script(src='public/kss.js')

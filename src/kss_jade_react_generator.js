@@ -216,8 +216,9 @@ kssJadeReactGenerator.generate = function(styleguide) {
       // this.Handlebars.registerPartial(partial.name, partial.markup);
       // Save the name of the partial and its data for retrieval in the markup
       // helper, where we only know the reference.
-      // partials[partial.reference] = {
+      partials[partial.reference] = partial;
       //   name: partial.name,
+      //   file: partial.file,
       //   data: partial.data
       // };
     }
@@ -264,6 +265,7 @@ kssJadeReactGenerator.generatePage = function(styleguide, sections, root, sectio
   var scripts = '';
   var customFields = this.config.custom;
   var key;
+  var data;
 
   if (root === 'styleguide.homepage') {
     filename = 'index.html';
@@ -304,22 +306,23 @@ kssJadeReactGenerator.generatePage = function(styleguide, sections, root, sectio
   /*eslint-enable guard-for-in*/
 
   /*eslint-disable key-spacing*/
-  fs.writeFileSync(this.config.destination + '/' + filename,
-    this.template({
-      partials:     partials,
-      helpers:      new KssHelpers(styleguide, this.config.helpers),
-      styleguide:   styleguide,
-      sectionRoots: sectionRoots,
-      sections:     sections.map(function(section) {
-        return section.toJSON(customFields);
-      }),
-      rootName:     root,
-      options:      this.config || {},
-      homepage:     homepageText,
-      styles:       styles,
-      scripts:      scripts
-    })
-  );
+  data = {
+    partials:     partials,
+    styleguide:   styleguide,
+    sectionRoots: sectionRoots,
+    sections:     sections.map(function(section) {
+      return section.toJSON(customFields);
+    }),
+    rootName:     root,
+    config:       this.config || {},
+    homepage:     homepageText,
+    styles:       styles,
+    scripts:      scripts
+  };
+
+  data.helpers = new KssHelpers(data);
+
+  fs.writeFileSync(this.config.destination + '/' + filename, this.template(data));
   /*eslint-enable key-spacing*/
 };
 

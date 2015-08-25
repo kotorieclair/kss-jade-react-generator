@@ -3,16 +3,15 @@
 
 'use strict';
 
-var _isFunction = require('lodash/lang/isFunction')
+var Kss = require('kss');
+var jade = require('jade');
+var _isFunction = require('lodash/lang/isFunction');
 
-var JadeReactHelpers = function(styleguide, helpers) {
-  if (!styleguide) {
-    console.error('styleguide must be provided!');
-  }
-  this.styleguide = styleguide;
+var JadeReactHelpers = function(data) {
+  this.data = data;
 
-  if (helpers) {
-    for (var name in helpers) {
+  if (data.config.helpers) {
+    for (var name in data.config.helpers) {
       this.registerHelper(name, helpers[name]);
     }
   }
@@ -34,7 +33,7 @@ JadeReactHelpers.prototype.registerHelper = function(name, helper) {
  * @param  {String|Number} reference The reference number to search for.
  */
 JadeReactHelpers.prototype.section = function(reference) {
-  var section = this.styleguide.section(reference);
+  var section = this.data.styleguide.section(reference);
 
   return section ? section.data : {};
 }
@@ -45,7 +44,7 @@ JadeReactHelpers.prototype.section = function(reference) {
  * @param  {Mixed} query The section query
  */
 JadeReactHelpers.prototype.eachSection = function(query) {
-  var styleguide = this.styleguide;
+  var styleguide = this.data.styleguide;
   var buffer = [];
   var sections;
   var i;
@@ -73,7 +72,7 @@ JadeReactHelpers.prototype.eachSection = function(query) {
  */
 JadeReactHelpers.prototype.eachRoot = function() {
   var buffer = [];
-  var sections = this.styleguide.section('x');
+  var sections = this.data.styleguide.section('x');
   var i;
   var l;
 
@@ -208,25 +207,25 @@ JadeReactHelpers.prototype.eachParameter = function(context) {
 /**
  * Outputs the current section's or modifier's markup.
  */
-JadeReactHelpers.prototype.markup = function(options) {
-  var partials = options.data.root.partials;
+JadeReactHelpers.prototype.markup = function(context) {
+  var partials = this.data.partials;
   var section;
   var modifier = false;
   var template;
   var partial;
   var data;
 
-  if (!this) {
+  if (!context) {
     return '';
   }
 
   // Determine if the element is a section object or a modifier object.
-  if (this.modifiers) {
+  if (context.modifiers) {
     // If this is the section object, use the default markup without a modifier class.
-    section = new Kss.KssSection(this);
+    section = new Kss.KssSection(context);
   } else {
     // If this is the markup object, find the modifier class and the section object.
-    modifier = new Kss.KssModifier(this);
+    modifier = new Kss.KssModifier(context);
     section = modifier.section();
   }
 
@@ -241,11 +240,18 @@ JadeReactHelpers.prototype.markup = function(options) {
   } else {
     data.modifier_class = '';
   }
-  data.modifier_class += modifier ? modifier.className() : config.placeholder;
+  data.modifier_class += modifier ? modifier.className() : this.data.config.placeholder;
   /*eslint-enable camelcase*/
 
   // Compile the section's markup partial into a template.
-  template = handlebars.compile('{{> "' + partial.name + '"}}');
+  // template = handlebars.compile('{{> "' + partial.name + '"}}');
+  // Compile the section's markup partial into a template.
+  if (partial.file) {
+    template = jade.compile('include ' + partial.file);
+  } else {
+    template = jade.compile(partial.markup);
+  }
+
   // We don't wrap the rendered template in "new handlebars.SafeString()" since
   // we want the ability to display it as a code sample with {{ }} and as
   // rendered HTML with {{{ }}}.
