@@ -107,7 +107,7 @@ body#kss-node
                 | Default styling
               
             .kss-modifier__example
-              != helpers.markup(modifier)
+              != helpers.markup(section)
   
             each modifier in helpers.eachModifier(section)
               .kss-modifier__name.kss-style
@@ -122,7 +122,7 @@ body#kss-node
           .kss-markup.kss-style
             pre.prettyprint.linenums.lang-html
               code(data-language='html')
-                != helpers.markup(modifier)
+                = helpers.markup(section)
 
   //- // SCRIPTS
   script(src='public/kss.js')

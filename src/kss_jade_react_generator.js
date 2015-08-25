@@ -60,6 +60,7 @@ kssJadeReactGenerator.init = function(config) {
 
   // Save the configuration parameters.
   this.config = config;
+  this.config.helpers = this.config.helpers || {};
 
   console.log('');
   console.log('Generating your KSS style guide!');
@@ -67,10 +68,9 @@ kssJadeReactGenerator.init = function(config) {
   console.log(' * KSS Source  : ' + this.config.source.join(', '));
   console.log(' * Destination : ' + this.config.destination);
   console.log(' * Template    : ' + this.config.template || './template');
-  this.config.helpers = this.config.helpers || {};
-  if (this.config.helpers) {
-    console.log(' * Helpers     : ' + this.config.helpers.join(', '));
-  }
+  // if (this.config.helpers) {
+  //   console.log(' * Helpers     : ' + this.config.helpers.join(', '));
+  // }
   this.config.title = this.config.title || 'styleguide'
   console.log('');
 
