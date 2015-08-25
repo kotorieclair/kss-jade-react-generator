@@ -20,126 +20,116 @@ head
   meta(name='description', content='')
   meta(name='generator', content='kss-node')
   meta(name='viewport', content='width=device-width')
-  //- link(rel='stylesheet', href='public/kss.css')
+  link(rel='stylesheet', href='public/kss.css')
   != styles
 body#kss-node
-  //- .kss-sidebar.kss-style
-  //-   header.kss-header
-  //-     h1.kss-doc-title= options.title
-  //-   nav.kss-nav
-  //-     ul.kss-nav__menu
-  //-       li.kss-nav__menu-item
-  //-         a(href='index.html')
-  //-           span.kss-nav__ref 0
-  //-           span.kss-nav__name Overview
-  //-             {{#eachRoot}}
-  //-       li.kss-nav__menu-item
-  //-         a(href='section-#{referenceURI}.html')
-  //-           span.kss-nav__ref {{#ifNumeric reference}}{{reference}}{{else}}{{autoincrement}}{{/ifNumeric}}
-  //-           span.kss-nav__name= header
-  //-             {{#ifReference ../rootName}}
-  //-                  
-  //-         ul.kss-nav__menu-child
-  //-           {{#eachSection reference}}
-  //-           {{#ifDepth 2}}
-  //-           li.kss-nav__menu-item
-  //-             a(href='section-#{../../referenceURI}.html#kssref-#{referenceURI}')
-  //-               span.kss-nav__ref {{#ifNumeric reference}}{{reference}}{{else}}{{autoincrement}}{{/ifNumeric}}
-  //-               span.kss-nav__name= {header}
-  //-                 {{/ifDepth}}
-  //-                 {{/eachSection}}
-  //-                 {{/ifReference}}
-  //-                 {{/eachRoot}}
+  .kss-sidebar.kss-style
+    header.kss-header
+      h1.kss-doc-title= options.title
+
+    nav.kss-nav
+      ul.kss-nav__menu
+
+        li.kss-nav__menu-item
+          a(href='index.html')
+            span.kss-nav__ref 0
+            span.kss-nav__name Overview
+
+        each root in helpers.eachRoot()
+          li.kss-nav__menu-item
+            a(href='section-#{root.referenceURI}.html')
+              span.kss-nav__ref
+                if helpers.ifNumeric(root.reference)
+                  = root.reference
+                else
+                  = root.autoincrement
+              span.kss-nav__name= root.header
+
+            if helpers.ifReference(rootName, root)
+              ul.kss-nav__menu-child
+                each section in helpers.eachSection(root.reference)
+                  if helpers.ifDepth(2, section)
+                    li.kss-nav__menu-item
+                      a(href='section-#{root.referenceURI}.html#kssref-#{section.referenceURI}')
+                        span.kss-nav__ref
+                          if helpers.ifNumeric(section.reference)
+                            = section.reference
+                          else
+                            = section.autoincrement
+                        span.kss-nav__name= section.header
+
   article.kss-main(role='main')
-    - var orig = JSON.stringify(styleguide, null, '  ');
-    - var sections = styleguide.section('x')[0]
-    - var sectionsData = sections.data;
-    - var opts = JSON.stringify(sections, null, '  ');
-    - var opts2 = JSON.stringify(sectionsData, null, '  ');
-    //- pre= opts
-    //- pre= opts2
-    pre= orig
-    
-    -
-      if (helpers.testHelper)
-        sec = helpers.testHelper();
-      else
-        sec = "no";
+    if homepage
+      #kssref-0.kss-section.kss-section--depth-0.kss-overview.kss-style
+        != homepage
+    else
+      each section in helpers.eachSection(rootName)
+        - var tag = helpers.ifDepth(1, section) ? 'div' : 'section';
+        #{tag}.kss-section(id='kssref-#{section.referenceURI}', class='kss-section--depth-#{section.depth}')
 
-    - var roots = helpers.eachRoot();
-    each root in roots
-      p= root.header
+          .kss-style
+            - var htag = 'h' + section.depth;
+            #{htag}.kss-title(class='kss-title--level-#{section.depth}')
 
-  //-   {{#if homepage}}
-  //-   #kssref-0.kss-section.kss-section--depth-0.kss-overview.kss-style
-  //-     != homepage
-  //-     {{else}}
-  //-     {{!
-  //-     Display each section, in order.
-  //-     The &quot;root&quot; element comes first in this loop, and can be detected using
-  //-     the &quot;#ifDepth 1&quot; block as seen below.
-  //-     }}
-  //-     {{#eachSection rootName}}
-  //-     {{#ifDepth 1}}
-  //-          
-  //-   .kss-section(id='kssref-#{referenceURI}', class='kss-section--depth-#{depth}')
-  //-      {{else}}
-  //-     section.kss-section(id='kssref-#{referenceURI}', class='kss-section--depth-{depth}')
-  //-       {{/ifDepth}}
-  //-       .kss-style
-  //-         {{#if parameters}}
-  //-         ul.kss-parameters
-  //-           {{#eachParameter}}
-  //-           li.kss-parameters__item
-  //-             code.kss-parameters__name= name
-  //-             .kss-parameters__description!= description
-  //-               {{/eachParameter}}
-  //-               {{/if}}
-  //-               {{#if description}}
-  //-                
-  //-         .kss-description
-  //-           != description
-  //-           {{/if}}
-  //-           {{#if markup}}
-  //-              
-  //-       .kss-modifier__wrapper
-  //-         .kss-modifier__heading.kss-style
-  //-           Example{{#if modifiers}}s{{/if}}
-  //-             {{#if modifiers}}
-  //-                  
-  //-         .kss-modifier__default-name.kss-style
-  //-           Default styling
-  //-             {{/if}}
-  //-                  
-  //-         .kss-modifier__example
-  //-           {{{markup}}}
-  //-           {{#eachModifier}}
-  //-                  
-  //-         .kss-modifier__name.kss-style
-  //-           {{name}}
-  //-                  
-  //-         .kss-modifier__description.kss-style
-  //-           {{{description}}}
-  //-                  
-  //-         .kss-modifier__example
-  //-           {{{markup}}}
-  //-           {{/eachModifier}}
-  //-              
-  //-       .kss-markup.kss-style
-  //-         pre.prettyprint.linenums.lang-html.
-  //-           
-  //-         {{/if}}
-  //-         {{#ifDepth 1}}
-  //-         {{else}}
-  //-         {{/ifDepth}}
-  //-         {{/eachSection}}
-  //-         {{/if}}
+              a.kss-title__permalink(href='#kssref-#{section.referenceURI}')
+                span.kss-title__ref
+                  if helpers.ifNumeric(reference)
+                    = section.reference
+                  else
+                    = section.autoincrement
+                  span.kss-title__permalink-hash
+                    if helpers.ifNumeric(reference)
+                      | #permalink
+                    else
+                      | ##{section.reference}
+                = section.header
+
+        if section.parameters
+          ul.kss-parameters
+            each parameter in helpers.eachParameter(section)
+              li.kss-parameters__item
+                code.kss-parameters__name= parameter.name
+                .kss-parameters__description!= parameter.description
+
+        if section.description
+          .kss-description!= section.description
+        
+        if section.markup
+          .kss-modifier__wrapper
+            .kss-modifier__heading.kss-style
+              if section.modifiers.length
+                | Examples
+              else
+                | Example
+
+            if section.modifiers
+              .kss-modifier__default-name.kss-style
+                | Default styling
+              
+            .kss-modifier__example
+              {{{markup}}}
+  
+            each modifier in helpers.eachModifier(section)
+              .kss-modifier__name.kss-style
+                = modifier.name
+                       
+              .kss-modifier__description.kss-style
+                != modifier.description
+                       
+              .kss-modifier__example
+                {{{markup}}}
+
+          .kss-markup.kss-style
+            pre.prettyprint.linenums.lang-html
+              code(data-language='html')
+                {{markup}}
+
   //- // SCRIPTS
-  //- script(src='public/kss.js')
-  //- script(src='public/prettify.js')
-  //- script.
-  //-   prettyPrint();
-  //-   {{{scripts}}}
+  script(src='public/kss.js')
+  script(src='public/prettify.js')
+  script.
+    prettyPrint();
+  != scripts
   //-   {{! This will only be included in the demo page. }}
   //-   {{#if options.xdemo}}
   //-    

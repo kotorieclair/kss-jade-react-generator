@@ -147,8 +147,6 @@ kssJadeReactGenerator.init = function(config) {
  * @param {KssStyleguide} styleguide The KSS style guide in object format.
  */
 kssJadeReactGenerator.generate = function(styleguide) {
-  this.helpers = new KssHelpers(styleguide, this.config.helpers);
-
   var sections = styleguide.section();
   var sectionCount = sections.length;
   var sectionRoots = [];
@@ -309,7 +307,7 @@ kssJadeReactGenerator.generatePage = function(styleguide, sections, root, sectio
   fs.writeFileSync(this.config.destination + '/' + filename,
     this.template({
       partials:     partials,
-      helpers:      this.helpers,
+      helpers:      new KssHelpers(styleguide, this.config.helpers),
       styleguide:   styleguide,
       sectionRoots: sectionRoots,
       sections:     sections.map(function(section) {
