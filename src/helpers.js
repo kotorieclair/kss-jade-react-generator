@@ -11,11 +11,11 @@ var beautify = require('js-beautify').html;
 var _isFunction = require('lodash/lang/isFunction');
 var _assign = require('lodash/object/assign');
 
-var JadeReactHelpers = function(data) {
+var JadeReactHelpers = function(data, helpers) {
   this.data = data;
 
-  if (data.config.helpers) {
-    for (var name in data.config.helpers) {
+  if (helpers) {
+    for (var name in helpers) {
       this.registerHelper(name, helpers[name]);
     }
   }

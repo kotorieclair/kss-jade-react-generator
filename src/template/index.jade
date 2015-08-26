@@ -124,9 +124,8 @@ body#kss-node
                   code(data-language='html')
                     = helpers.markup(section)
 
-    //- - var orig = JSON.stringify(styleguide, null, '  ');
-    //- pre= orig
-                
+
+    p= helpers.testHelper("this is test helper!")
 
   //- // SCRIPTS
   script(src='public/kss.js')

@@ -7,24 +7,24 @@
  * The `kss/generator/handlebars` module loads the kssHandlebarsGenerator
  * object, a `{@link KssGenerator}` object using Handlebars templating.
  * ```
- * var kssHandlebarsGenerator = require('kss/generator/handlebars');
+ * var kssJadeReactGenerator = require('kss/generator/jade_react');
  * ```
- * @module kss/generator/handlebars
+ * @module kss/generator/jade_react
  */
 
 var KssGenerator = require('kss/generator');
-// var KssSection = require('../../lib/kss_section.js');
 var KssSection = require('kss/lib/kss_section.js');
-var KssHelpers = require('./helpers.js');
+var JadeReactHelpers = require('./helpers.js');
 var fs = require('fs');
 var glob = require('glob');
 var marked = require('marked');
 var path = require('path');
 var wrench = require('wrench');
+var _assign = require('lodash/object/assign');
 var defaultTitle = require('./template/index.js').options;
 
 // Pass a string to KssGenerator() to tell the system which API version is
-// implemented by kssHandlebarsGenerator.
+// implemented by kssJadeReactGenerator.
 var kssJadeReactGenerator = new KssGenerator('2.0', {
   'helpers': {
     string: true,
@@ -52,7 +52,7 @@ var kssJadeReactGenerator = new KssGenerator('2.0', {
  * requested style guide generation. The generator can use this information for
  * any necessary tasks before the KSS parsing of the source files.
  *
- * @alias module:kss/generator/handlebars.init
+ * @alias module:kss/generator/jade_react.init
  * @param {Object} config Configuration object for the style guide generation.
  */
 kssJadeReactGenerator.init = function(config) {
@@ -66,6 +66,7 @@ kssJadeReactGenerator.init = function(config) {
   this.config.homepage = this.config.homepage || this.options.homepage.default;
   this.config.placeholder = this.config.placeholder || this.options.placeholder.default;
   this.config.title = this.config.title || defaultTitle.title.default;
+  this.helpers = {};
 
   console.log('');
   console.log('kssJadeReactGenerator');
@@ -74,10 +75,9 @@ kssJadeReactGenerator.init = function(config) {
   console.log(' * KSS Source  : ' + this.config.source.join(', '));
   console.log(' * Destination : ' + this.config.destination);
   console.log(' * Template    : ' + this.config.template || './template');
-  // if (this.config.helpers) {
-  //   console.log(' * Helpers     : ' + this.config.helpers.join(', '));
-  // }
-  // this.config.title = this.config.title || 'styleguide'
+  if (this.config.helpers) {
+    console.log(' * Helpers     : ' + this.config.helpers.join(', '));
+  }
   console.log('');
 
   // Create a new destination directory.
@@ -108,41 +108,29 @@ kssJadeReactGenerator.init = function(config) {
     // empty
   }
 
-  // Store the global Handlebars object.
-  // this.Handlebars = require('handlebars');
   // Store the global Jade object.
   this.jade = require('jade');
 
-  // Load the standard Handlebars helpers.
-  // require('./helpers.js').register(this.Handlebars, this.config);
-  // this.helpers = require('./helpers.js');
-  // this.helpers = _assign({}, this.helpers, this.config.helpers);
+  // Load the config's helpers.
+  if (this.config.helpers.length > 0) {
+    for (i = 0; i < this.config.helpers.length; i++) {
+      if (fs.existsSync(this.config.helpers[i])) {
+        // Load custom Handlebars helpers.
+        var helperFiles = fs.readdirSync(this.config.helpers[i]);
 
-  // Load Handlebars helpers.
-  // if (this.config.helpers.length > 0) {
-  //   for (i = 0; i < this.config.helpers.length; i++) {
-  //     if (fs.existsSync(this.config.helpers[i])) {
-  //       // Load custom Handlebars helpers.
-  //       var helperFiles = fs.readdirSync(this.config.helpers[i]);
-  //
-  //       for (j = 0; j < helperFiles.length; j++) {
-  //         if (path.extname(helperFiles[j]) === '.js') {
-  //           helper = require(this.config.helpers[i] + '/' + helperFiles[j]);
-  //           if (typeof helper.register === 'function') {
-  //             helper.register(this.Handlebars, this.config);
-  //           }
-  //         }
-  //       }
-  //     }
-  //   }
-  // }
-
-  // Compile the Handlebars template.
-  // this.template = fs.readFileSync(this.config.template + '/index.html', 'utf8');
-  // this.template = this.Handlebars.compile(this.template);
+        for (j = 0; j < helperFiles.length; j++) {
+          if (path.extname(helperFiles[j]) === '.js') {
+            helper = require(path.resolve(this.config.helpers[i] + '/' + helperFiles[j]));
+            if (typeof helper === 'object') {
+              this.helpers = _assign({}, this.helpers, helper);
+            }
+          }
+        }
+      }
+    }
+  }
 
   // Compile the jade template.
-  // this.template = fs.readFileSync(this.config.template + '/index.html', 'utf8');
   this.template = this.jade.compileFile(this.config.template + '/index.jade', {
     pretty: true
   });
@@ -151,7 +139,7 @@ kssJadeReactGenerator.init = function(config) {
 /**
  * Generate the HTML files of the style guide given a KssStyleguide object.
  *
- * @alias module:kss/generator/handlebars.generate
+ * @alias module:kss/generator/jade_react.generate
  * @param {KssStyleguide} styleguide The KSS style guide in object format.
  */
 kssJadeReactGenerator.generate = function(styleguide) {
@@ -225,16 +213,9 @@ kssJadeReactGenerator.generate = function(styleguide) {
       } else {
         console.log(' - ' + partial.reference + ': inline markup');
       }
-      // Register the partial using the filename (without extension) or using
-      // the style guide reference.
-      // this.Handlebars.registerPartial(partial.name, partial.markup);
       // Save the name of the partial and its data for retrieval in the markup
       // helper, where we only know the reference.
       partials[partial.reference] = partial;
-      //   name: partial.name,
-      //   file: partial.file,
-      //   data: partial.data
-      // };
     }
 
     // Accumulate all of the sections' first indexes
@@ -272,7 +253,7 @@ kssJadeReactGenerator.generate = function(styleguide) {
 };
 
 /**
- * Renders the handlebars template for a section and saves it to a file.
+ * Renders the jade template for a section and saves it to a file.
  *
  * @alias module:kss/generator/handlebars.generatePage
  * @param {KssStyleguide} styleguide The KSS style guide in object format.
@@ -344,7 +325,7 @@ kssJadeReactGenerator.generatePage = function(styleguide, sections, root, sectio
     scripts:      scripts
   };
 
-  data.helpers = new KssHelpers(data);
+  data.helpers = new JadeReactHelpers(data, this.helpers);
 
   fs.writeFileSync(this.config.destination + '/' + filename, this.template(data));
   /*eslint-enable key-spacing*/
