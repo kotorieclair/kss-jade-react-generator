@@ -1,6 +1,6 @@
 var gulp = require('gulp');
 var kss = require('kss');
-var kssGenerator = require('./src/kss_jade_react_generator.js');
+var kssGenerator = require('./src/index.js');
 var open = require('gulp-open')
 
 gulp.task('kss', function() {

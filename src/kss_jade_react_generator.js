@@ -20,15 +20,16 @@ var glob = require('glob');
 var marked = require('marked');
 var path = require('path');
 var wrench = require('wrench');
+var defaultTitle = require('./template/index.js').options;
 
 // Pass a string to KssGenerator() to tell the system which API version is
 // implemented by kssHandlebarsGenerator.
 var kssJadeReactGenerator = new KssGenerator('2.0', {
-  // 'helpers': {
-  //   string: true,
-  //   path: true,
-  //   describe: 'Location of custom handlebars helpers; see http://bit.ly/kss-wiki'
-  // },
+  'helpers': {
+    string: true,
+    path: true,
+    describe: 'Location of custom handlebars helpers; see http://bit.ly/kss-wiki'
+  },
   'homepage': {
     string: true,
     multiple: false,
@@ -60,9 +61,13 @@ kssJadeReactGenerator.init = function(config) {
 
   // Save the configuration parameters.
   this.config = config;
-  this.config.helpers = this.config.helpers || {};
+  this.config.helpers = this.config.helpers || [];
+  this.config.homepage = this.config.homepage || this.options.homepage.default;
+  this.config.placeholder = this.config.placeholder || this.options.placeholder.default;
+  this.config.title = this.config.title || defaultTitle.title.default;
 
   console.log('');
+  console.log('kssJadeReactGenerator');
   console.log('Generating your KSS style guide!');
   console.log('');
   console.log(' * KSS Source  : ' + this.config.source.join(', '));
@@ -71,8 +76,10 @@ kssJadeReactGenerator.init = function(config) {
   // if (this.config.helpers) {
   //   console.log(' * Helpers     : ' + this.config.helpers.join(', '));
   // }
-  this.config.title = this.config.title || 'styleguide'
+  // this.config.title = this.config.title || 'styleguide'
   console.log('');
+
+  console.log(this.options)
 
   // Create a new destination directory.
   try {
@@ -137,7 +144,9 @@ kssJadeReactGenerator.init = function(config) {
 
   // Compile the jade template.
   // this.template = fs.readFileSync(this.config.template + '/index.html', 'utf8');
-  this.template = this.jade.compileFile(this.config.template + '/index.jade');
+  this.template = this.jade.compileFile(this.config.template + '/index.jade', {
+    pretty: true
+  });
 };
 
 /**
@@ -229,6 +238,16 @@ kssJadeReactGenerator.generate = function(styleguide) {
     if (sectionRoots.indexOf(currentRoot) === -1) {
       sectionRoots.push(currentRoot);
     }
+    // var found = false;
+    // for (var j in sectionRoots) {
+    //   if (sectionRoots[j].reference === currentRoot) {
+    //     found = true;
+    //     break;
+    //   }
+    // }
+    // if (!found && sections[i]) {
+    //   sectionRoots.push({'reference': sections[i].reference(), 'header': sections[i].header(), 'referenceURI': sections[i].referenceURI()});
+    // }
   }
 
   console.log('...Generating style guide sections:');

@@ -247,9 +247,13 @@ JadeReactHelpers.prototype.markup = function(context) {
   // template = handlebars.compile('{{> "' + partial.name + '"}}');
   // Compile the section's markup partial into a template.
   if (partial.file) {
-    template = jade.compile('include ' + partial.file);
+    template = jade.compile('include ' + partial.file, {
+      pretty: true
+    });
   } else {
-    template = jade.compile(partial.markup);
+    template = jade.compile(partial.markup, {
+      pretty: true
+    });
   }
 
   // We don't wrap the rendered template in "new handlebars.SafeString()" since

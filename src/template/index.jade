@@ -124,6 +124,10 @@ body#kss-node
               code(data-language='html')
                 = helpers.markup(section)
 
+    - var orig = JSON.stringify(styleguide, null, '  ');
+    pre= orig
+                
+
   //- // SCRIPTS
   script(src='public/kss.js')
   script(src='public/prettify.js')
