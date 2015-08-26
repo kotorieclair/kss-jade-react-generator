@@ -1,0 +1,46 @@
+/**
+ * jade
+ *
+ * markup example using jade template
+ *
+ * Styleguide 2
+ */
+
+/**
+ * jade - inline
+ *
+ * inline jade
+ *
+ * Styleguide 2.1
+ */
+
+/**
+ * jade - inline example
+ *
+ * single line jade (example rendered as html)
+ *
+ * :hover - hover
+ * .active - active
+ *
+ * Markup: div(class='#{modifier_class}') jade single line
+ *
+ * Styleguide 2.1.1
+ */
+
+/**
+ * jade - external
+ *
+ * external jade file
+ *
+ * Styleguide 2.2
+ */
+
+/**
+ * jade - external example
+ *
+ * fetched from external html file
+ *
+ * Markup: jade/external.jade
+ *
+ * Styleguide 2.2.1
+ */

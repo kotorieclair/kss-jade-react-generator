@@ -1,3 +1,5 @@
+require("babel/register");
+
 var gulp = require('gulp');
 var kss = require('kss');
 var kssGenerator = require('./src/index.js');

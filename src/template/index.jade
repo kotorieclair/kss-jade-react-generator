@@ -84,48 +84,48 @@ body#kss-node
                       | ##{section.reference}
                 = section.header
 
-        if section.parameters
-          ul.kss-parameters
-            each parameter in helpers.eachParameter(section)
-              li.kss-parameters__item
-                code.kss-parameters__name= parameter.name
-                .kss-parameters__description!= parameter.description
+            if section.parameters.length
+              ul.kss-parameters
+                each parameter in helpers.eachParameter(section)
+                  li.kss-parameters__item
+                    code.kss-parameters__name= parameter.name
+                    .kss-parameters__description!= parameter.description
 
-        if section.description
-          .kss-description!= section.description
-        
-        if section.markup
-          .kss-modifier__wrapper
-            .kss-modifier__heading.kss-style
-              if section.modifiers.length
-                | Examples
-              else
-                | Example
+            if section.description
+              .kss-description!= section.description
+            
+            if section.markup
+              .kss-modifier__wrapper
+                .kss-modifier__heading.kss-style
+                  if section.modifiers.length
+                    | Examples
+                  else
+                    | Example
 
-            if section.modifiers
-              .kss-modifier__default-name.kss-style
-                | Default styling
-              
-            .kss-modifier__example
-              != helpers.markup(section)
-  
-            each modifier in helpers.eachModifier(section)
-              .kss-modifier__name.kss-style
-                = modifier.name
-                       
-              .kss-modifier__description.kss-style
-                != modifier.description
-                       
-              .kss-modifier__example
-                != helpers.markup(modifier)
+                if section.modifiers
+                  .kss-modifier__default-name.kss-style
+                    | Default styling
+                  
+                .kss-modifier__example
+                  != helpers.markup(section)
+      
+                each modifier in helpers.eachModifier(section)
+                  .kss-modifier__name.kss-style
+                    = modifier.name
+                           
+                  .kss-modifier__description.kss-style
+                    != modifier.description
+                           
+                  .kss-modifier__example
+                    != helpers.markup(modifier)
 
-          .kss-markup.kss-style
-            pre.prettyprint.linenums.lang-html
-              code(data-language='html')
-                = helpers.markup(section)
+              .kss-markup.kss-style
+                pre.prettyprint.linenums.lang-html
+                  code(data-language='html')
+                    = helpers.markup(section)
 
-    - var orig = JSON.stringify(styleguide, null, '  ');
-    pre= orig
+    //- - var orig = JSON.stringify(styleguide, null, '  ');
+    //- pre= orig
                 
 
   //- // SCRIPTS

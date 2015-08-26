@@ -11,6 +11,7 @@
  * ```
  * @module kss/generator/handlebars
  */
+
 var KssGenerator = require('kss/generator');
 // var KssSection = require('../../lib/kss_section.js');
 var KssSection = require('kss/lib/kss_section.js');
@@ -78,8 +79,6 @@ kssJadeReactGenerator.init = function(config) {
   // }
   // this.config.title = this.config.title || 'styleguide'
   console.log('');
-
-  console.log(this.options)
 
   // Create a new destination directory.
   try {
@@ -186,11 +185,12 @@ kssJadeReactGenerator.generate = function(styleguide) {
         name: sections[i].reference(),
         reference: sections[i].reference(),
         file: '',
+        type: '',
         markup: sections[i].markup(),
         data: {}
       };
       // If the markup is a file path, attempt to load the file.
-      if (partial.markup.match(/^[^\n]+\.(html|jade)$/)) {
+      if (partial.markup.match(/^[^\n]+\.(html|jade|jsx)$/)) {
         partial.file = partial.markup;
         partial.name = path.basename(partial.file, path.extname(partial.file));
         files = [];
@@ -207,7 +207,12 @@ kssJadeReactGenerator.generate = function(styleguide) {
         if (files.length) {
           // Load the partial's markup from file.
           partial.file = files[0];
-          partial.markup = fs.readFileSync(partial.file, 'utf8');
+          partial.type = path.extname(partial.file).replace('.', '');
+          if (partial.type === 'jsx') {
+            partial.markup = require(path.resolve(partial.file));
+          } else {
+            partial.markup = fs.readFileSync(partial.file, 'utf8');
+          }
           // Load sample data for the partial from the sample .json file.
           if (fs.existsSync(path.dirname(partial.file) + '/' + partial.name + '.json')) {
             try {

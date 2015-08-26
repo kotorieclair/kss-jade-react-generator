@@ -3,9 +3,13 @@
 
 'use strict';
 
+var path = require('path');
 var Kss = require('kss');
 var jade = require('jade');
+var React = require('react');
+var beautify = require('js-beautify').html;
 var _isFunction = require('lodash/lang/isFunction');
+var _assign = require('lodash/object/assign');
 
 var JadeReactHelpers = function(data) {
   this.data = data;
@@ -214,6 +218,7 @@ JadeReactHelpers.prototype.markup = function(context) {
   var template;
   var partial;
   var data;
+  var renderer;
 
   if (!context) {
     return '';
@@ -247,19 +252,29 @@ JadeReactHelpers.prototype.markup = function(context) {
   // template = handlebars.compile('{{> "' + partial.name + '"}}');
   // Compile the section's markup partial into a template.
   if (partial.file) {
-    template = jade.compile('include ' + partial.file, {
-      pretty: true
-    });
+    if (partial.type === 'jsx') {
+      renderer = React.createFactory(partial.markup.component);
+      template = function() {
+        return React.renderToStaticMarkup(
+          renderer(_assign({}, data, partial.markup.props))
+        );
+      };
+    } else {
+      template = jade.compile('include ' + partial.file, {
+        filename: path.basename(partial.file)
+      });
+    }
   } else {
-    template = jade.compile(partial.markup, {
-      pretty: true
-    });
+    template = jade.compile(partial.markup);
   }
 
   // We don't wrap the rendered template in "new handlebars.SafeString()" since
   // we want the ability to display it as a code sample with {{ }} and as
   // rendered HTML with {{{ }}}.
-  return template(data);
+  return beautify(template(data), {
+    "indent_size": 2,
+    "indent_with_tabs": false
+  });
 }
 
 module.exports = JadeReactHelpers;

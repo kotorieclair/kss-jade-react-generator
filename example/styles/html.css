@@ -1,0 +1,68 @@
+/**
+ * html
+ *
+ * markup example using plain html
+ *
+ * Styleguide 1
+ */
+
+/**
+ * html - inline
+ *
+ * inline html
+ *
+ * Styleguide 1.1
+ */
+
+/**
+ * html - inline example
+ *
+ * single line
+ *
+ * Markup:
+ * <div>inline html markup</div>
+ *
+ * Styleguide 1.1.1
+ */
+
+/**
+ * html - inline example more
+ *
+ * multiline
+ *
+ * Markup:
+ * <ul>
+ * <li>first item</li>
+ * <li>second item</li>
+ * </ul>
+ *
+ * Styleguide 1.1.2
+ */
+
+/**
+ * html - external
+ *
+ * external html file
+ *
+ * Styleguide 1.2
+ */
+
+/**
+ * html - external example
+ *
+ * fetched from external html file
+ *
+ * Markup: html/external-single.html
+ *
+ * Styleguide 1.2.1
+ */
+
+ /**
+  * html - external example more
+  *
+  * fetched from external html file (multiline)
+  *
+  * Markup: html/external-multi.html
+  *
+  * Styleguide 1.2.2
+  */
