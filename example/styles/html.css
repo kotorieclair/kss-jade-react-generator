@@ -1,23 +1,23 @@
 /**
- * html
+ * HTML
  *
- * markup example using plain html
+ * Markup examples using plain html
  *
  * Styleguide 1
  */
 
 /**
- * html - inline
+ * HTML - inline
  *
- * inline html
+ * An inline HTML
  *
  * Styleguide 1.1
  */
 
 /**
- * html - inline example
+ * HTML - single line example
  *
- * single line
+ * A single line
  *
  * Markup:
  * <div>inline html markup</div>
@@ -26,9 +26,9 @@
  */
 
 /**
- * html - inline example more
+ * HTML - multi-line example
  *
- * multiline
+ * Multi-line
  *
  * Markup:
  * <ul>
@@ -40,9 +40,9 @@
  */
 
 /**
- * html - external
+ * HTML - external
  *
- * external html file
+ * An external html file
  *
  * Styleguide 1.2
  */
@@ -50,7 +50,7 @@
 /**
  * html - external example
  *
- * fetched from external html file
+ * Fetched from html/external-single.html
  *
  * Markup: html/external-single.html
  *
@@ -60,7 +60,7 @@
  /**
   * html - external example more
   *
-  * fetched from external html file (multiline)
+  * Fetched from html/external-multi.html
   *
   * Markup: html/external-multi.html
   *

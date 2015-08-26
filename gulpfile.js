@@ -20,7 +20,7 @@ gulp.task('kss', function() {
 
 gulp.task('kss:open', function() {
   return gulp.src('./styleguide/index.html')
-  .pipe(open());
+    .pipe(open());
 });
 
 gulp.task('watch', ['kss'], function() {

@@ -1,23 +1,23 @@
 /**
- * jade
+ * Jade
  *
- * markup example using jade template
+ * Markup examples using Jade template
  *
  * Styleguide 2
  */
 
 /**
- * jade - inline
+ * Jade - inline
  *
- * inline jade
+ * An inline Jade
  *
  * Styleguide 2.1
  */
 
 /**
- * jade - inline example
+ * Jade - inline example
  *
- * single line jade (example rendered as html)
+ * A single line Jade (example shown as a compiled HTML markup)
  *
  * :hover - hover
  * .active - active
@@ -28,17 +28,17 @@
  */
 
 /**
- * jade - external
+ * Jade - external
  *
- * external jade file
+ * An external Jade file
  *
  * Styleguide 2.2
  */
 
 /**
- * jade - external example
+ * Jade - external example
  *
- * fetched from external html file
+ * Fetched from jade/external.jade
  *
  * Markup: jade/external.jade
  *

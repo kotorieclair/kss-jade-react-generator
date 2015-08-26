@@ -17,7 +17,6 @@
   },
   "homepage": "https://github.com/kotorieclair/kss-jade-react-generator#readme",
   "dependencies": {
-    "babel-runtime": "^5.8.20",
     "glob": "^5.0.14",
     "jade": "^1.11.0",
     "js-beautify": "^1.5.10",

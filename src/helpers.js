@@ -23,7 +23,8 @@ var JadeReactHelpers = function(data, helpers) {
 
 /**
  * Register a helper
- * @param  {String|Number} reference The reference number to search for.
+ * @param  {String} name The name of the helper.
+ * @param  {Function} helper The function to be called.
  */
 JadeReactHelpers.prototype.registerHelper = function(name, helper) {
   if (!_isFunction(helper)) {
@@ -93,26 +94,17 @@ JadeReactHelpers.prototype.eachRoot = function() {
 }
 
 /**
- * Equivalent to "if the given reference is numeric". e.g:
- *
- * {{#ifNumeric reference}}
- *    REFERENCES LIKE 4.0 OR 4.1.14
- *   {{else}}
- *    ANYTHING ELSE
- * {{/ifNumeric}}
+ * Equivalent to "if the given reference is numeric".
+ * @param  {Mixed} reference The KssSection's reference
  */
 JadeReactHelpers.prototype.ifNumeric = function(reference) {
   return (typeof reference === 'number' || typeof reference === 'string' && reference.match(/^[\.\d]+$/));
 }
 
 /**
- * Equivalent to "if the current reference is X". e.g:
- *
- * {{#ifReference 'base.headings'}}
- *    IF CURRENT REFERENCE IS base.headings ONLY
- *   {{else}}
- *    ANYTHING ELSE
- * {{/ifReference}}
+ * Equivalent to "if the current reference is X".
+ * @param  {Mixed} reference The KssSection's reference
+ * @param  {Mixed} context The current section
  */
 JadeReactHelpers.prototype.ifReference = function(reference, context) {
   return (context.reference && reference === context.reference);
@@ -120,57 +112,44 @@ JadeReactHelpers.prototype.ifReference = function(reference, context) {
 
 
 /**
- * Equivalent to "unless the current reference is X". e.g:
- *
- * {{#unlessReference 'base.headings'}}
- *    ANYTHING ELSE
- *   {{else}}
- *    IF CURRENT REFERENCE IS base.headings ONLY
- * {{/unlessReference}}
+ * Equivalent to "unless the current reference is X".
+ * @param  {Mixed} reference The KssSection's reference
+ * @param  {Mixed} context The current section
  */
 JadeReactHelpers.prototype.unlessReference = function(reference, context) {
   return (!context.reference || reference !== context.reference);
 }
 
 /**
- * Equivalent to "if the current section is X levels deep". e.g:
- *
- * {{#ifDepth 1}}
- *    ROOT ELEMENTS ONLY
- *   {{else}}
- *    ANYTHING ELSE
- * {{/ifDepth}}
+ * Equivalent to "if the current section is X levels deep".
+ * @param  {Mixed} reference The KssSection's depth
+ * @param  {Mixed} context The current section
  */
 JadeReactHelpers.prototype.ifDepth = function(depth, context) {
   return (context.depth && depth === context.depth);
 }
 
 /**
- * Equivalent to "unless the current section is X levels deep". e.g:
- *
- * {{#unlessDepth 1}}
- *    ANYTHING ELSE
- *   {{else}}
- *    ROOT ELEMENTS ONLY
- * {{/unlessDepth}}
+ * Equivalent to "unless the current section is X levels deep".
+ * @param  {Mixed} reference The KssSection's depth
+ * @param  {Mixed} context The current section
  */
 JadeReactHelpers.prototype.unlessDepth = function(depth, context) {
   return (!context.depth || depth !== context.depth);
 }
 
 /**
- * Similar to the {#eachSection} helper, however will loop over each modifier
- * @param  {Object} section Supply a section object to loop over its modifiers. Defaults to the current section.
+ * Similar to the eachSection helper, however will loop over each modifier
+ * @param  {Object} section Supply a section object to loop over its modifiers.
  */
-JadeReactHelpers.prototype.eachModifier = function(context) {
+JadeReactHelpers.prototype.eachModifier = function(section) {
   var modifiers;
-  // var options = arguments[arguments.length - 1],
   var buffer = [];
   var i;
   var l;
 
-  // Default to current modifiers, but allow supplying a custom section.
-  modifiers = (arguments.length > 1 && arguments[0].data) ? arguments[0].data.modifiers : context.modifiers;
+  // set modifiers
+  modifiers = section.modifiers || [];
 
   if (!modifiers) {
     return buffer;
@@ -184,18 +163,17 @@ JadeReactHelpers.prototype.eachModifier = function(context) {
 }
 
 /**
- * Similar to the {#eachSection} helper, however will loop over each parameter
- * @param  {Object} section Supply a section object to loop over its parameters. Defaults to the current section.
+ * Similar to the eachSection helper, however will loop over each parameter
+ * @param  {Object|KssSection} section Supply a section object to loop over its parameters.
  */
-JadeReactHelpers.prototype.eachParameter = function(context) {
+JadeReactHelpers.prototype.eachParameter = function(section) {
   var parameters;
-  // var options = arguments[arguments.length - 1];
   var buffer = [];
   var i;
   var l;
 
-  // Default to current parameters, but allow supplying a custom section.
-  parameters = (arguments.length > 1 && arguments[0].data) ? arguments[0].data.parameters : context.parameters;
+  // set parameters
+  parameters = section.parameters || [];
 
   if (!parameters) {
     return buffer;
@@ -210,6 +188,7 @@ JadeReactHelpers.prototype.eachParameter = function(context) {
 
 /**
  * Outputs the current section's or modifier's markup.
+ * @param  {Object|KssSection} context The current section or modifier
  */
 JadeReactHelpers.prototype.markup = function(context) {
   var partials = this.data.partials;
@@ -249,9 +228,8 @@ JadeReactHelpers.prototype.markup = function(context) {
   /*eslint-enable camelcase*/
 
   // Compile the section's markup partial into a template.
-  // template = handlebars.compile('{{> "' + partial.name + '"}}');
-  // Compile the section's markup partial into a template.
   if (partial.file) {
+    // react component
     if (partial.type === 'jsx') {
       renderer = React.createFactory(partial.markup.component);
       template = function() {
@@ -268,9 +246,7 @@ JadeReactHelpers.prototype.markup = function(context) {
     template = jade.compile(partial.markup);
   }
 
-  // We don't wrap the rendered template in "new handlebars.SafeString()" since
-  // we want the ability to display it as a code sample with {{ }} and as
-  // rendered HTML with {{{ }}}.
+  // beautify (for react component)
   return beautify(template(data), {
     "indent_size": 2,
     "indent_with_tabs": false

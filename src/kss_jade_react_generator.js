@@ -224,16 +224,6 @@ kssJadeReactGenerator.generate = function(styleguide) {
     if (sectionRoots.indexOf(currentRoot) === -1) {
       sectionRoots.push(currentRoot);
     }
-    // var found = false;
-    // for (var j in sectionRoots) {
-    //   if (sectionRoots[j].reference === currentRoot) {
-    //     found = true;
-    //     break;
-    //   }
-    // }
-    // if (!found && sections[i]) {
-    //   sectionRoots.push({'reference': sections[i].reference(), 'header': sections[i].header(), 'referenceURI': sections[i].referenceURI()});
-    // }
   }
 
   console.log('...Generating style guide sections:');
