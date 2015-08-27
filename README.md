@@ -1,7 +1,11 @@
 # kss-jade-react-generator
+
 A [kss-node](http://kss-node.github.io/kss-node/)'s generator - supporting [Jade](http://jade-lang.com/) and [React](https://facebook.github.io/react/) component
 
 **Currently lacks tests**
+
+[![NPM](https://nodei.co/npm/kss-jade-react-generator.png)](https://nodei.co/npm/kss-jade-react-generator/)
+
 
 ## Overview
 This is mostly a direct translation of the kss-node's default Handlebars generator, but few changes are added.
