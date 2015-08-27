@@ -22,10 +22,21 @@
  * :hover - hover
  * .active - active
  *
- * Markup: div(class='#{modifier_class}') jade single line
+ * Markup: div(class='jade-1-1 #{modifier_class}') Jade single line
  *
  * Styleguide 2.1.1
  */
+.jade-1-1 {
+  background-color: #f0b54a;
+  padding: 10px;
+}
+.jade-1-1:hover,
+.jade-1-1.pseudo-class-hover {
+  background-color: #dd7f1d;
+}
+.jade-1-1.active {
+  font-weight: bold;
+}
 
 /**
  * Jade - multi-line example
@@ -33,12 +44,16 @@
  * A multi-line Jade (example shown as a compiled HTML markup)
  *
  * Markup:
- * ul
+ * ul(class='jade-1-2')
  *  li first item
  *  li second item
  *
  * Styleguide 2.1.2
  */
+.jade-1-2 {
+  background-color: #93cf90;
+  padding: 10px;
+}
 
 /**
  * Jade - external
@@ -57,3 +72,7 @@
  *
  * Styleguide 2.2.1
  */
+.jade-2-1 {
+  background-color: #93cf90;
+  padding: 10px;
+}

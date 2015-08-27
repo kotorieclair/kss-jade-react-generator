@@ -11,17 +11,32 @@
  *
  * Fetched from react/external.jsx (example shown as a compiled HTML static markup)
  *
+ * Modifier is not supported for React component.
+ *
  * Markup: react/external.jsx
  *
  * Styleguide 3.1
  */
+.react-1 {
+  background-color: #f0b54a;
+  padding: 10px;
+}
+.react-1 p {
+  border: 1px solid #fff;
+}
 
 /**
  * React - nested
  *
  * Fetched from react/external-nested.jsx (example shown as a compiled HTML static markup)
  *
+ * Modifier is not supported for React component.
+ *
  * Markup: react/external-nested.jsx
  *
  * Styleguide 3.2
  */
+.react-2 {
+  background-color: #93cf90;
+  padding: 10px;
+}

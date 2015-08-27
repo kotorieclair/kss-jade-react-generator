@@ -19,10 +19,14 @@
  *
  * A single line HTML
  *
- * Markup: <div>inline html markup</div>
+ * Markup: <div class="html-1-1">inline HTML markup</div>
  *
  * Styleguide 1.1.1
  */
+.html-1-1 {
+  background-color: #f0b54a;
+  padding: 10px;
+}
 
 /**
  * HTML - multi-line example
@@ -30,13 +34,17 @@
  * A multi-line HTML
  *
  * Markup:
- * <ul>
+ * <ul class="html-1-2">
  * <li>first item</li>
  * <li>second item</li>
  * </ul>
  *
  * Styleguide 1.1.2
  */
+.html-1-2 {
+  background-color: #93cf90;
+  padding: 10px;
+}
 
 /**
  * HTML - external
@@ -55,13 +63,21 @@
  *
  * Styleguide 1.2.1
  */
+.html-2-1 {
+  background-color: #f0b54a;
+  padding: 10px;
+}
 
- /**
-  * html - external example more
-  *
-  * Fetched from html/external-multi.html
-  *
-  * Markup: html/external-multi.html
-  *
-  * Styleguide 1.2.2
-  */
+/**
+ * html - external example more
+ *
+ * Fetched from html/external-multi.html
+ *
+ * Markup: html/external-multi.html
+ *
+ * Styleguide 1.2.2
+ */
+.html-2-2 {
+  background-color: #93cf90;
+  padding: 10px;
+}

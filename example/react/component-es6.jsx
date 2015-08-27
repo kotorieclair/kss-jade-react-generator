@@ -11,11 +11,10 @@ class SampleComponent extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="react-1">
         <p>external React ES6 markup</p>
         <p>{this.state.title}</p>
           <p>{this.props.providedProp}</p>
-          <p className={this.props.modifier_class}>modifier class goes here</p>
       </div>
     );
   }

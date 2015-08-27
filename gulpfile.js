@@ -11,7 +11,8 @@ gulp.task('kss', function() {
       source: ['./example'],
       destination: './styleguide',
       template: './src/template',
-      helpers: ['./example/helpers']
+      helpers: ['./example/helpers'],
+      css: ['../example/styles/html.css', '../example/styles/jade.css', '../example/styles/react.css']
     });
 
     kssGenerator.generate(styleguide);
