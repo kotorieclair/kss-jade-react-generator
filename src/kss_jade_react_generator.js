@@ -4,8 +4,8 @@
 'use strict';
 
 /**
- * The `kss/generator/handlebars` module loads the kssHandlebarsGenerator
- * object, a `{@link KssGenerator}` object using Handlebars templating.
+ * The `kss/generator/jade_react` module loads the kssJadeReactGenerator
+ * object, a `{@link KssGenerator}` object using Jade templating.
  * ```
  * var kssJadeReactGenerator = require('kss/generator/jade_react');
  * ```
@@ -29,7 +29,7 @@ var kssJadeReactGenerator = new KssGenerator('2.0', {
   'helpers': {
     string: true,
     path: true,
-    describe: 'Location of custom handlebars helpers; see http://bit.ly/kss-wiki'
+    describe: 'Location of custom helpers; see http://bit.ly/kss-wiki'
   },
   'homepage': {
     string: true,
@@ -115,7 +115,7 @@ kssJadeReactGenerator.init = function(config) {
   if (this.config.helpers.length > 0) {
     for (i = 0; i < this.config.helpers.length; i++) {
       if (fs.existsSync(this.config.helpers[i])) {
-        // Load custom Handlebars helpers.
+        // Load custom helpers.
         var helperFiles = fs.readdirSync(this.config.helpers[i]);
 
         for (j = 0; j < helperFiles.length; j++) {
@@ -168,7 +168,7 @@ kssJadeReactGenerator.generate = function(styleguide) {
   console.log('...Determining section markup:');
 
   for (i = 0; i < sectionCount; i += 1) {
-    // Register all the markup blocks as Handlebars partials.
+    // Register all the markup blocks as Jade partials.
     if (sections[i].markup()) {
       partial = {
         name: sections[i].reference(),
@@ -244,14 +244,14 @@ kssJadeReactGenerator.generate = function(styleguide) {
 };
 
 /**
- * Renders the jade template for a section and saves it to a file.
+ * Renders the Jade template for a section and saves it to a file.
  *
- * @alias module:kss/generator/handlebars.generatePage
+ * @alias module:kss/generator/jade_react.generatePage
  * @param {KssStyleguide} styleguide The KSS style guide in object format.
  * @param {Array} sections An array of KssSection objects.
  * @param {string} root The current section's reference.
  * @param {Array} sectionRoots An array of section references for all sections at the root of the style guide.
- * @param {Object} partials A hash of the names and data of the registered Handlebars partials.
+ * @param {Object} partials A hash of the names and data of the registered Jade partials.
  */
 kssJadeReactGenerator.generatePage = function(styleguide, sections, root, sectionRoots, partials) {
   var filename = '';
