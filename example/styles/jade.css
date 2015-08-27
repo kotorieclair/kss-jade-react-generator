@@ -15,7 +15,7 @@
  */
 
 /**
- * Jade - inline example
+ * Jade - single line example
  *
  * A single line Jade (example shown as a compiled HTML markup)
  *
@@ -25,6 +25,19 @@
  * Markup: div(class='#{modifier_class}') jade single line
  *
  * Styleguide 2.1.1
+ */
+
+/**
+ * Jade - multi-line example
+ *
+ * A multi-line Jade (example shown as a compiled HTML markup)
+ *
+ * Markup:
+ * ul
+ *  li first item
+ *  li second item
+ *
+ * Styleguide 2.1.2
  */
 
 /**

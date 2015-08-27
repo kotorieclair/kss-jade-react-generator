@@ -1,17 +1,27 @@
 /**
  * React
  *
- * A Markup example using React Component
+ * A Markup example using React component
  *
  * Styleguide 3
  */
 
- /**
-  * React - external
-  *
-  * Fetched from react/external.jsx (example shown as a compiled HTML static markup)
-  *
-  * Markup: react/external.jsx
-  *
-  * Styleguide 3.1
-  */
+/**
+ * React - single
+ *
+ * Fetched from react/external.jsx (example shown as a compiled HTML static markup)
+ *
+ * Markup: react/external.jsx
+ *
+ * Styleguide 3.1
+ */
+
+/**
+ * React - nested
+ *
+ * Fetched from react/external-nested.jsx (example shown as a compiled HTML static markup)
+ *
+ * Markup: react/external-nested.jsx
+ *
+ * Styleguide 3.2
+ */

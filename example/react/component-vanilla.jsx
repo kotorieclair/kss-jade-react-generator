@@ -9,7 +9,7 @@ var SampleComponent = React.createClass({
   render: function() {
     return (
       <div>
-        <p>external react markup</p>
+        <p>external React markup</p>
         <p>{this.state.title}</p>
         <p>{this.props.providedProp}</p>
         <p className={this.props.modifier_class}>modifier class goes here</p>

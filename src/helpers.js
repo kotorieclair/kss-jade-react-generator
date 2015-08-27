@@ -238,7 +238,7 @@ JadeReactHelpers.prototype.markup = function(context) {
         );
       };
     } else {
-      template = jade.compile('include ' + partial.file, {
+      template = jade.compile('include ' + path.relative(process.cwd(), partial.file), {
         filename: path.basename(partial.file)
       });
     }

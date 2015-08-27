@@ -3,4 +3,4 @@ module.exports = {
   testHelper: function(text) {
     return text;
   }
-}
+};

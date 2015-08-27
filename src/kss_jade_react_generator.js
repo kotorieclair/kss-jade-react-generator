@@ -154,6 +154,7 @@ kssJadeReactGenerator.generate = function(styleguide) {
   var files = [];
   var i;
   var key;
+  var bundler;
 
   console.log(styleguide.data.files.map(function(file) {
     return ' - ' + file;

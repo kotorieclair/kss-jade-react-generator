@@ -22,6 +22,7 @@ head
   meta(name='viewport', content='width=device-width')
   link(rel='stylesheet', href='public/kss.css')
   != styles
+
 body#kss-node
   .kss-sidebar.kss-style
     header.kss-header
@@ -29,7 +30,6 @@ body#kss-node
 
     nav.kss-nav
       ul.kss-nav__menu
-
         li.kss-nav__menu-item
           a(href='index.html')
             span.kss-nav__ref 0
@@ -45,7 +45,7 @@ body#kss-node
                   = root.autoincrement
               span.kss-nav__name= root.header
 
-            if helpers.ifReference(rootName, root)
+          if helpers.ifReference(rootName, root)
               ul.kss-nav__menu-child
                 each section in helpers.eachSection(root.reference)
                   if helpers.ifDepth(2, section)
@@ -124,18 +124,14 @@ body#kss-node
                   code(data-language='html')
                     = helpers.markup(section)
 
-  //- // SCRIPTS
+  // SCRIPTS
   script(src='public/kss.js')
   script(src='public/prettify.js')
   script.
     prettyPrint();
   != scripts
-  //-   {{! This will only be included in the demo page. }}
-  //-   {{#if options.xdemo}}
-  //-    
-  //- footer.kss-github
-  //-   // https://github.com/blog/273-github-ribbons
-  //-   a(href='https://github.com/kss-node/kss-node')
-  //-     img(src='public/github-fork--black.png', alt='Fork me on GitHub')
-  //-     {{/if}}
-  //- // Automatically generated using <a href="https://github.com/kss-node/kss-node">kss-node</a>.
+
+  // Automatically generated using <a href="https://github.com/kss-node/kss-node">kss-node</a>.
+  // Generator: <a href="https://github.com/kotorieclair/kss-jade-react-generator">kss-jade-react-generator</a>.
+
+</html>
