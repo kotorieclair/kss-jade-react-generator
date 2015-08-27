@@ -24,5 +24,3 @@ Then, open the generated style guide with
 ```bash
 $ gulp kss:open
 ```
-
-**WIP**
