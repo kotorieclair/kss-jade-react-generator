@@ -1,7 +1,7 @@
 {
   "name": "kss-jade-react-generator",
   "version": "0.0.1",
-  "description": "A kss-node generator with jade template/React.js component",
+  "description": "A kss-node generator with Jade template/React.js component",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
