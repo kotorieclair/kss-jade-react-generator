@@ -66,6 +66,7 @@ kssJadeReactGenerator.init = function(config) {
   this.config.homepage = this.config.homepage || this.options.homepage.default;
   this.config.placeholder = this.config.placeholder || this.options.placeholder.default;
   this.config.title = this.config.title || defaultTitle.title.default;
+  this.config.template = this.config.template || './src/template';
   this.helpers = {};
 
   console.log('');
@@ -74,7 +75,7 @@ kssJadeReactGenerator.init = function(config) {
   console.log('');
   console.log(' * KSS Source  : ' + this.config.source.join(', '));
   console.log(' * Destination : ' + this.config.destination);
-  console.log(' * Template    : ' + this.config.template || './template');
+  console.log(' * Template    : ' + this.config.template);
   if (this.config.helpers) {
     console.log(' * Helpers     : ' + this.config.helpers.join(', '));
   }
