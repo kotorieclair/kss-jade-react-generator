@@ -105,9 +105,12 @@ body#kss-node
                 if section.modifiers
                   .kss-modifier__default-name.kss-style
                     | Default styling
-                  
-                .kss-modifier__example
-                  != helpers.markup(section)
+
+                  .kss-modifier__example
+                    if !section.defaultmodifier
+                      != helpers.markup(section)
+                    else
+                      | see <strong>#{section.defaultmodifier}</strong> below.
       
                 each modifier in helpers.eachModifier(section)
                   .kss-modifier__name.kss-style
