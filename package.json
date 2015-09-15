@@ -1,6 +1,6 @@
 {
   "name": "kss-jade-react-generator",
-  "version": "0.0.2",
+  "version": "0.1.0",
   "description": "A kss-node generator with Jade template/React.js component",
   "main": "index.js",
   "scripts": {
