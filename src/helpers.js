@@ -7,6 +7,7 @@ var path = require('path');
 var Kss = require('kss');
 var jade = require('jade');
 var React = require('react');
+var RouterContext = require('./RouterContext.jsx');
 var beautify = require('js-beautify').html;
 var _isFunction = require('lodash/lang/isFunction');
 var _assign = require('lodash/object/assign');
@@ -187,6 +188,34 @@ JadeReactHelpers.prototype.eachParameter = function(section) {
 }
 
 /**
+ * Similar to the eachSection helper, however will loop over each colors custom parameter
+ * @param  {Object|KssSection} section Supply a section object to loop over its parameters.
+ */
+JadeReactHelpers.prototype.eachColor = function(section) {
+  var colors;
+  var buffer = [];
+  var i;
+  var l;
+  var tmp;
+
+  // set parameters
+  colors = section.colors || '';
+
+  colors = colors.split('\n');
+  l = colors.length;
+  for (i = 0; i < l; i++) {
+    tmp = colors[i].split(' - ');
+    buffer.push({
+      color: tmp[0],
+      description: tmp[1]
+    });
+  }
+
+  return buffer;
+}
+
+
+/**
  * Outputs the current section's or modifier's markup.
  * @param  {Object|KssSection} context The current section or modifier
  */
@@ -231,7 +260,9 @@ JadeReactHelpers.prototype.markup = function(context) {
   if (partial.file) {
     // react component
     if (partial.type === 'jsx') {
-      renderer = React.createFactory(partial.markup.component);
+      renderer = React.createFactory(
+        RouterContext(partial.markup.component, this.data.config.routerContext)
+      );
       template = function() {
         return React.renderToStaticMarkup(
           renderer(_assign({}, data, partial.markup.props))
@@ -249,7 +280,9 @@ JadeReactHelpers.prototype.markup = function(context) {
   // beautify (for react component)
   return beautify(template(data), {
     "indent_size": 2,
-    "indent_with_tabs": false
+    "indent_with_tabs": false,
+    "unformatted": [],
+    "preserve-newlines": true
   });
 }
 

@@ -1,0 +1,69 @@
+/**
+ * Custom Properties
+ *
+ * Examples of the custom properties
+ *
+ * Styleguide 4
+ */
+
+/**
+ * DefaultModifier
+ *
+ * If set, the default modifier hides the default styling's markup
+ * and directs to the corresponding modifier.
+ *
+ * .modifier-a - modifier A
+ * .modifier-b - modifier B (set as a DefaultModifier)
+ * .modifier-c - modifier C
+ *
+ * DefaultModifier: .modifier-b
+ *
+ * Markup: div(class='properties-1 #{modifier_class}') Default modifier example
+ *
+ * Styleguide 4.1
+ */
+.properties-1 {
+ background-color: #f0b54a;
+ padding: 10px;
+}
+.properties-1.modifier-a {
+ background-color: #cc7a7a
+}
+.properties-1.modifier-b {
+ background-color: #6e90c9
+}
+.properties-1.modifier-c {
+ background-color: #b69bb8
+}
+
+/**
+ * Colors
+ *
+ * Use this propery to just display colors.
+ * Unlike the Modifier property, this does not display raw markups: avoids extra classes unnecessary for the project from being exposed.
+ *
+ * Syntax: `{color} - {description}`
+ *
+ * Output (default template): `<p class="color-{color}">{description}</p>`
+ *
+ * *You need to define classes used for displaying colors on your own.*
+ *
+ * Colors:
+ * red - red color
+ * blue - blue color
+ * green - green color
+ *
+ * Styleguide 4.2
+ */
+.color-red {
+  background-color: red;
+  color: #fff;
+}
+.color-blue {
+  background-color: blue;
+  color: #fff;
+}
+.color-green {
+  background-color: green;
+  color: #fff;
+}

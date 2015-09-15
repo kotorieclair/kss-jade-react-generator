@@ -36,3 +36,18 @@
   background-color: #93cf90;
   padding: 10px;
 }
+
+/**
+ * React - with React-Router
+ *
+ * This generator can display a React component containing a React-Router component.
+ *
+ * For customization example of React-Router context methods, see `customRouterHelper.js` file under the `exmaple/routerHelpers` folder.
+ *
+ * Markup: react/react-router.jsx
+ *
+ * Styleguide 3.3
+ */
+.react-3 a {
+  background-color: #f0b54a;
+}

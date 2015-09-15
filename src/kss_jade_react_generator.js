@@ -42,6 +42,11 @@ var kssJadeReactGenerator = new KssGenerator('2.0', {
     multiple: false,
     describe: 'Placeholder text to use for modifier classes',
     default: '[modifier class]'
+  },
+  'routerHelpers': {
+    string: true,
+    path: true,
+    describe: 'Location of custom react-router helpers'
   }
 });
 
@@ -59,10 +64,12 @@ kssJadeReactGenerator.init = function(config) {
   var i;
   var j;
   var helper;
+  var context;
 
   // Save the configuration parameters.
   this.config = config;
   this.config.helpers = this.config.helpers || [];
+  this.config.routerHelpers = this.config.routerHelpers || [];
   this.config.homepage = this.config.homepage || this.options.homepage.default;
   this.config.placeholder = this.config.placeholder || this.options.placeholder.default;
   this.config.title = this.config.title || defaultTitle.title.default;
@@ -73,11 +80,14 @@ kssJadeReactGenerator.init = function(config) {
   console.log('kssJadeReactGenerator');
   console.log('Generating your KSS style guide!');
   console.log('');
-  console.log(' * KSS Source  : ' + this.config.source.join(', '));
-  console.log(' * Destination : ' + this.config.destination);
-  console.log(' * Template    : ' + this.config.template);
+  console.log(' * KSS Source    : ' + this.config.source.join(', '));
+  console.log(' * Destination   : ' + this.config.destination);
+  console.log(' * Template      : ' + this.config.template);
   if (this.config.helpers) {
-    console.log(' * Helpers     : ' + this.config.helpers.join(', '));
+    console.log(' * Helpers       : ' + this.config.helpers.join(', '));
+  }
+  if (this.config.routerHelpers) {
+    console.log(' * RouterHelpers : ' + this.config.routerHelpers.join(', '));
   }
   console.log('');
 
@@ -124,6 +134,25 @@ kssJadeReactGenerator.init = function(config) {
             helper = require(path.resolve(this.config.helpers[i] + '/' + helperFiles[j]));
             if (typeof helper === 'object') {
               this.helpers = _assign({}, this.helpers, helper);
+            }
+          }
+        }
+      }
+    }
+  }
+
+  // Load the config's routerHelpers.
+  if (this.config.routerHelpers.length > 0) {
+    for (i = 0; i < this.config.routerHelpers.length; i++) {
+      if (fs.existsSync(this.config.routerHelpers[i])) {
+        // Load custom routerHelpers.
+        var helperFiles = fs.readdirSync(this.config.routerHelpers[i]);
+
+        for (j = 0; j < helperFiles.length; j++) {
+          if (path.extname(helperFiles[j]) === '.js') {
+            context = require(path.resolve(this.config.routerHelpers[i] + '/' + helperFiles[j]));
+            if (typeof helper === 'object') {
+              this.config.routerContext = _assign({}, this.config.routerContext, context);
             }
           }
         }

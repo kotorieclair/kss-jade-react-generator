@@ -56,36 +56,6 @@
 }
 
 /**
- * Jade - DefaultModifier example
- *
- * If set, the default modifier hides the default styling's markup
- * and directs to the corresponding modifier.
- *
- * .modifier-a - modifier A
- * .modifier-b - modifier B (set as a DefaultModifier)
- * .modifier-c - modifier C
- *
- * DefaultModifier: .modifier-b
- *
- * Markup: div(class='jade-1-3 #{modifier_class}') Jade default modifier
- *
- * Styleguide 2.1.3
- */
-.jade-1-3 {
-  background-color: #f0b54a;
-  padding: 10px;
-}
-.jade-1-3.modifier-a {
-  background-color: #cc7a7a
-}
-.jade-1-3.modifier-b {
-  background-color: #6e90c9
-}
-.jade-1-3.modifier-c {
-  background-color: #b69bb8
-}
-
-/**
  * Jade - external
  *
  * An external Jade file

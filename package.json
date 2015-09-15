@@ -29,6 +29,7 @@
   "devDependencies": {
     "babel": "^5.8.21",
     "gulp": "^3.9.0",
-    "gulp-open": "^1.0.0"
+    "gulp-open": "^1.0.0",
+    "react-router": "^0.13.3"
   }
 }

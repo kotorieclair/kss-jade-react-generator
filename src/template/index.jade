@@ -94,6 +94,15 @@ body#kss-node
             if section.description
               .kss-description!= section.description
             
+            if section.colors
+              .kss-modifier__wrapper
+                .kss-modifier__heading.kss-style
+                  | Color Sample
+
+                .kss-modifier__example
+                  each color in helpers.eachColor(section)
+                    p(class='color-#{color.color}')= color.description
+
             if section.markup
               .kss-modifier__wrapper
                 .kss-modifier__heading.kss-style

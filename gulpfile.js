@@ -6,13 +6,14 @@ var kssGenerator = require('./src/index.js');
 var open = require('gulp-open')
 
 gulp.task('kss', function() {
-  kss.traverse('./example', { custom: ['DefaultModifier'] }, function(err, styleguide) {
+  kss.traverse('./example', { custom: ['DefaultModifier', 'Colors'] }, function(err, styleguide) {
     kssGenerator.init({
       source: ['./example'],
       destination: './styleguide',
       template: './src/template',
       helpers: ['./example/helpers'],
-      css: ['../example/styles/html.css', '../example/styles/jade.css', '../example/styles/react.css'],
+      css: ['../example/styles/style.css'],
+      routerHelpers: ['./example/routerHelpers']
     });
 
     kssGenerator.generate(styleguide);
