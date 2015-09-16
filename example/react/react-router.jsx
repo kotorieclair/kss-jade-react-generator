@@ -10,8 +10,9 @@ var SampleComponent = React.createClass({
   render: function() {
     return (
       <div className="react-3">
-        <p>React component with React-Router component</p>
+        <p>React component with React-Router component {this.props.linkTo}</p>
         <Link to="hogehoge">React-Router Link component</Link>
+        <Link to={this.props.linkTo}>another Link component</Link>
         <p>This example is replacing following methods</p>
         <ul>
           <li>makeHref() - returns 'sample_makeHref'</li>
@@ -24,5 +25,7 @@ var SampleComponent = React.createClass({
 
 module.exports = {
   component: SampleComponent,
-  props: {}
+  props: {
+    linkTo: 'link',
+  }
 };

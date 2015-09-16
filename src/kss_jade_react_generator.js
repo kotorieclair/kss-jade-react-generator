@@ -74,6 +74,7 @@ kssJadeReactGenerator.init = function(config) {
   this.config.placeholder = this.config.placeholder || this.options.placeholder.default;
   this.config.title = this.config.title || defaultTitle.title.default;
   this.config.template = this.config.template || './src/template';
+  this.routerContext = {};
   this.helpers = {};
 
   console.log('');
@@ -151,8 +152,8 @@ kssJadeReactGenerator.init = function(config) {
         for (j = 0; j < helperFiles.length; j++) {
           if (path.extname(helperFiles[j]) === '.js') {
             context = require(path.resolve(this.config.routerHelpers[i] + '/' + helperFiles[j]));
-            if (typeof helper === 'object') {
-              this.config.routerContext = _assign({}, this.config.routerContext, context);
+            if (typeof context === 'object') {
+              this.routerContext = _assign({}, this.routerContext, context);
             }
           }
         }
@@ -333,17 +334,18 @@ kssJadeReactGenerator.generatePage = function(styleguide, sections, root, sectio
 
   /*eslint-disable key-spacing*/
   data = {
-    partials:     partials,
-    styleguide:   styleguide,
-    sectionRoots: sectionRoots,
-    sections:     sections.map(function(section) {
+    partials:      partials,
+    styleguide:    styleguide,
+    sectionRoots:  sectionRoots,
+    sections:      sections.map(function(section) {
       return section.toJSON(customFields);
     }),
-    rootName:     root,
-    config:       this.config || {},
-    homepage:     homepageText,
-    styles:       styles,
-    scripts:      scripts
+    rootName:      root,
+    config:        this.config || {},
+    homepage:      homepageText,
+    styles:        styles,
+    scripts:       scripts,
+    routerContext: this.routerContext || {}
   };
 
   data.helpers = new JadeReactHelpers(data, this.helpers);

@@ -261,7 +261,7 @@ JadeReactHelpers.prototype.markup = function(context) {
     // react component
     if (partial.type === 'jsx') {
       renderer = React.createFactory(
-        RouterContext(partial.markup.component, this.data.config.routerContext)
+        RouterContext(partial.markup.component, this.data.routerContext)
       );
       template = function() {
         return React.renderToStaticMarkup(
