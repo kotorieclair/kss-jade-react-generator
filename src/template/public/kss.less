@@ -362,11 +362,13 @@
     display: table-cell;
   }
 
-  .kss-modifier__wrapper {
+  .kss-modifier__wrapper,
+  .kss-colors__wrapper {
     border: 1px solid #ccc;
     padding: 10px;
   }
-  .kss-modifier__heading {
+  .kss-modifier__heading,
+  .kss-colors__heading {
     margin: -10px -10px 10px -10px;
     padding: 10px;
     border-bottom: 1px solid #ccc;
@@ -385,7 +387,8 @@
   .kss-modifier__description {
     margin-bottom: (@kss-vertical-rhythm / 2);
   }
-  .kss-modifier__example {
+  .kss-modifier__example,
+  .kss-colors__example {
     clear: left;
     padding: 1px 0; // Contain the example's margins.
     margin: 0 0 (@kss-vertical-rhythm - 1px) 0;
@@ -393,6 +396,10 @@
     &:last-child {
       margin: 0;
     }
+  }
+
+  .kss-defaultModifier {
+    padding-left: 10px;
   }
 
   .kss-markup {

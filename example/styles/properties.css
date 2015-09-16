@@ -27,13 +27,13 @@
  padding: 10px;
 }
 .properties-1.modifier-a {
- background-color: #cc7a7a
+ background-color: #cc7a7a;
 }
 .properties-1.modifier-b {
- background-color: #6e90c9
+ background-color: #6e90c9;
 }
 .properties-1.modifier-c {
- background-color: #b69bb8
+ background-color: #b69bb8;
 }
 
 /**
@@ -49,21 +49,21 @@
  * *You need to define classes used for displaying colors on your own.*
  *
  * Colors:
- * red - red color
- * blue - blue color
- * green - green color
+ * red - red color (.color-red)
+ * blue - blue color (.color-blue)
+ * purple - purple color (.color-purple)
  *
  * Styleguide 4.2
  */
 .color-red {
-  background-color: red;
-  color: #fff;
+  background-color: #cc7a7a;
+  padding: 10px
 }
 .color-blue {
-  background-color: blue;
-  color: #fff;
+  background-color: #6e90c9;
+  padding: 10px
 }
-.color-green {
-  background-color: green;
-  color: #fff;
+.color-purple {
+  background-color: #b69bb8;
+  padding: 10px
 }

@@ -34,7 +34,7 @@ var RouterContext = function(Component, options) {
     },
 
     render: function() {
-      return <Component {...this.props} />
+      return React.createElement(Component, this.props);
     }
   });
 }

@@ -95,11 +95,11 @@ body#kss-node
               .kss-description!= section.description
             
             if section.colors
-              .kss-modifier__wrapper
-                .kss-modifier__heading.kss-style
+              .kss-colors__wrapper
+                .kss-colors__heading.kss-style
                   | Color Sample
 
-                .kss-modifier__example
+                .kss-colors__example
                   each color in helpers.eachColor(section)
                     p(class='color-#{color.color}')= color.description
 
@@ -115,10 +115,11 @@ body#kss-node
                   .kss-modifier__default-name.kss-style
                     | Default styling
 
-                  .kss-modifier__example
-                    if !section.defaultmodifier
+                  if !section.defaultmodifier
+                    .kss-modifier__example
                       != helpers.markup(section)
-                    else
+                  else
+                    .kss-modifier__example.kss-defaultModifier
                       | see <strong>#{section.defaultmodifier}</strong> below.
       
                 each modifier in helpers.eachModifier(section)
