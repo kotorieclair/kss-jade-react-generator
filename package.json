@@ -32,6 +32,6 @@
     "gulp-less": "^3.0.3",
     "gulp-minify-css": "^1.2.1",
     "gulp-open": "^1.0.0",
-    "react-router": "^0.13.3"
+    "react-router": "^1.0.0-rc1"
   }
 }
