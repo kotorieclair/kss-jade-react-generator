@@ -1,4 +1,4 @@
-// Sample custom react-router helper
+// Sample custom react-router@0.13.3 helper
 module.exports = {
   makePath: function() {
     return 'sample_makePath';
@@ -29,4 +29,4 @@ module.exports = {
   },
   getRouteAtDepth: function() {},
   setRouteComponentAtDepth: function() {}
-}
+};

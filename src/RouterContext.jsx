@@ -4,7 +4,7 @@ var _assign = require('lodash/object/assign');
 var RouterContext = function(Component, options) {
   function DummyRouter() {}
 
-  var dummyHistory = _assign({}, {
+  _assign(DummyRouter, {
     makePath: function() {},
     makeHref: function() {},
     transitionTo: function() {},
@@ -17,11 +17,19 @@ var RouterContext = function(Component, options) {
     getCurrentQuery: function() {},
     isActive: function() {},
     getRouteAtDepth: function() {},
-    setRouteComponentAtDepth: function() {},
-    createHref: function() {}
+    setRouteComponentAtDepth: function() {}
   }, options);
 
-  _assign(DummyRouter, dummyHistory);
+  var dummyHistory = _assign({}, {
+    pushState: function() {},
+    replaceState: function() {},
+    go: function() {},
+    goBack: function() {},
+    goForward: function() {},
+    createPath: function() {},
+    createHref: function() {},
+    isActive: function() {}
+  }, options);
 
   return React.createClass({
     childContextTypes: {
