@@ -12,6 +12,17 @@ var beautify = require('js-beautify').html;
 var _isFunction = require('lodash/lang/isFunction');
 var _assign = require('lodash/object/assign');
 
+// Check for React version
+var ReactDOM;
+var version = React.version.split(".").map(function(num) {
+  return parseInt(num);
+});
+if (version[0] < 1 && version[1] <= 13) {
+  ReactDOM = React;
+} else {
+  ReactDOM = require('react-dom/server');
+}
+
 var JadeReactHelpers = function(data, helpers) {
   this.data = data;
 
@@ -264,7 +275,7 @@ JadeReactHelpers.prototype.markup = function(context) {
         RouterContext(partial.markup.component, this.data.routerContext)
       );
       template = function() {
-        return React.renderToStaticMarkup(
+        return ReactDOM.renderToStaticMarkup(
           renderer(_assign({}, data, partial.markup.props))
         );
       };

@@ -23,7 +23,8 @@
     "kss": "^2.1.0",
     "lodash": "^3.10.1",
     "marked": "^0.3.5",
-    "react": "^0.13.3",
+    "react": "^0.14.0-rc1",
+    "react-dom": "^0.14.0-rc1",
     "wrench": "^1.5.8"
   },
   "devDependencies": {
